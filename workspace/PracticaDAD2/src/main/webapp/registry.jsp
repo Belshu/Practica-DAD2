@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>INICIAR SESION</title>
+<title>REGISTRARSE</title>
 </head>
 <body>
-HACER FORMULARIO PARA EL LOGIN:
-	- form: action="request.getContextPath() + /LoginServlet"
+HACER FORMULARIO PARA EL REGISTRO:
+	- form: action="request.getContextPath() + /RegistryServlet"
 	- input type "text" name="Parameters.USERNAME"
 	- input type "text" name="Parameters.PASSWORD"
 	etc 
