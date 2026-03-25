@@ -37,8 +37,8 @@ public class InitializeContexts implements ServletContextListener{
 		Student student = new Student("alumno1", "pass");
 		Titulation tit = new Titulation("0", "TITULACION 0");
 		
-		usuarios.put("0_" + admin.getType(), admin);
-		usuarios.put("0_" + student.getType(), student);
+		usuarios.put(admin.getUsername(), admin);
+		usuarios.put(student.getUsername(), student);
 		titulaciones.put(tit.getId(), tit);
 		titulaciones.put("1", new Titulation("1", "TITULACION 1"));
 		titulaciones.put("2", new Titulation("2", "TITULACION 2"));
