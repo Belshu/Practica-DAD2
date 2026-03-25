@@ -5,6 +5,7 @@ public class Titulation {
 
 	public Titulation(String id, String nombre) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 	}
 
