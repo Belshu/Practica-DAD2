@@ -25,10 +25,10 @@ public class ListTitulations extends BodyTagSupport{
 						pageContext.getOut().println("<p>ID: " + t.getId() + " | NOMBRE: " + t.getNombre() + "</p>");
 					}
 				} else {
-					pageContext.getOut().println("Lista vacía!");
+					pageContext.getOut().println("<p>Lista vacía!</p>");
 				}
 			} else {
-				pageContext.getOut().println("Lista no disponible!");
+				pageContext.getOut().println("<p>Lista no disponible!</p>");
 			}
 		} catch(Exception ex) {
 			System.out.println("ListTitulations -> " + ex.getMessage());

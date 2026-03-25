@@ -18,6 +18,18 @@ public class ListUsers extends BodyTagSupport{
 			Hashtable <String, User> users = (Hashtable <String, User>) 
 					pageContext.getServletContext().getAttribute(Attributes.USUARIOS);
 			
+			if(users != null) {
+				if(users.size() > 0) {
+					for(User u : users.values()) {
+						pageContext.getOut().println("<p>NOMBRE: " + u.getUsername() + " | CONTRASEÑA: " + u.getPassword()
+						+ " | TIPO: " + u.getType() + "</p>");
+					}
+				} else {
+					pageContext.getOut().print("<p>Lista vacía!</p>");
+				}
+			} else {
+				pageContext.getOut().print("<p>Lista no disponible!</p>");
+			}
 		} catch(Exception ex) {
 			System.out.println("ListUsers -> " + ex.getMessage());
 		}
