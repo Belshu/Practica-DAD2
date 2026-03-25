@@ -17,24 +17,32 @@ public class AdminFilter extends HttpFilter implements Filter{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * FILTRA USUARIOS POR EL TIPO, SI SON ADMINISTRADORES O NO.
-	 * */
+	 * ADMIN FILTER
+	 * SOLO PERMITE ACCESO A /crud/secured/* A USUARIOS ADMIN
+	 */
+
 	@Override
 	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		try {
+			// OBTENER USUARIO DE SESIÓN
 			User user = (User) request.getSession().getAttribute(Attributes.LOGGED_USER);
-			
-			if(user != null && user.getType().equals("ADMIN")) {
+
+			// COMPROBAR SI ES ADMIN
+			if (user != null && user.getType().equals("ADMIN")) {
+				System.out.println("AdminFilter -> Administrador '" + user.getUsername() + "' accediendo a zona segura");
 				chain.doFilter(request, response);
-				System.out.println("AdminFilter -> Administrador '" + user.getUsername() + "': entrado en secured");
 				return;
-			} else {
-				System.out.println("AdminFilter -> Usuario '" + user.getUsername() + "': acceso no permitido");
 			}
-		} catch(Exception ex) {
+
+			System.out.println("AdminFilter -> Acceso denegado");
+
+		} catch (Exception ex) {
 			System.out.println("AdminFilter -> " + ex.getMessage());
 		}
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+
+		// SI NO ES ADMIN -> REDIRIGIR A INDEX GENERAL
+		request.getRequestDispatcher("/crud/index.jsp").forward(request, response);
 	}
+
 }

@@ -4,7 +4,7 @@ public class Titulation {
 	private String id, nombre;
 
 	public Titulation(String id, String nombre) {
-		super();
+		this.id = id;
 		this.nombre = nombre;
 	}
 

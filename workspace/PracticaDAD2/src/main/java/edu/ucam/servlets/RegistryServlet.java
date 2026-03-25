@@ -6,30 +6,62 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Hashtable;
+
+import edu.ucam.config.Attributes;
+import edu.ucam.config.Parameters;
+import edu.ucam.domain.Admin;
+import edu.ucam.domain.Student;
+import edu.ucam.domain.User;
 
 /**
- * Servlet implementation class RegistryServlet
+ * LOGIN SERVLET
+ * COMPRUEBA LAS CREDENCIALES DEL USUARIO Y LO REDIRIGE SEGÚN SU TIPO (ADMIN / STUDENT)
  */
+
 @WebServlet("/RegistryServlet")
 public class RegistryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public RegistryServlet() {
         super();
-        // TODO Auto-generated constructor stub
+     
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			// AÑADIR NUEVO USUARIO CREADO A LA HASHTABLE (SANTIAGO SI QUIERES)
+			// OBTENER PARÁMETROS DEL FORMULARIO
+			String username = request.getParameter(Parameters.USERNAME);
+			String password = request.getParameter(Parameters.PASSWORD);
+			String type = request.getParameter("type"); // ADMIN o STUDENT
+
+			// OBTENER LISTA DE USUARIOS DEL CONTEXTO
+			Hashtable<String, User> usuarios =
+					(Hashtable<String, User>) request.getServletContext().getAttribute(Attributes.USUARIOS);
+
+			// COMPROBAR SI EL USUARIO YA EXISTE
+			if (usuarios.containsKey(username)) {
+				request.setAttribute(Attributes.ERROR_MSG, "El usuario ya existe");
+				request.getRequestDispatcher("registry.jsp").forward(request, response);
+				return;
+			}
 			
+			// CREAR NUEVO USUARIO SEGÚN EL TIPO
+			User newUser;
 			
+			if (type.equals("ADMIN")) {
+				newUser = new Admin(username, password);
+			} else {
+				newUser = new Student(username, password);
+			}
+			
+			// AÑADIR USUARIO A LA HASHTABLE
+			usuarios.put(username, newUser);
+			// REDIRIGIR AL LOGIN
+			response.sendRedirect("login.jsp");
+
 		} catch(Exception ex) {
 			System.out.println("LoginServlet -> " + ex.getMessage());
 		}

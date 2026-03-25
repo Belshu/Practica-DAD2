@@ -2,6 +2,8 @@ package edu.ucam.filters;
 
 import java.io.IOException;
 
+import edu.ucam.config.Attributes;
+import edu.ucam.domain.User;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,19 +15,30 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebFilter("/crud/*")
 public class LoginFilter extends HttpFilter implements Filter{
 	private static final long serialVersionUID = 1L;
+	/**
+	 * LOGIN FILTER
+	 * IMPIDE ACCEDER A /crud/* SI NO HAY UN USUARIO LOGUEADO
+	 */
 
 	@Override
 	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		try {
-			// PONER EL FILTRO CORRESPONDIENTE (SANTIAGO)
-			
-			chain.doFilter(request, response);
-			
-		} catch(Exception ex) {
+			// OBTENER USUARIO DE SESIÓN
+			User user = (User) request.getSession().getAttribute(Attributes.LOGGED_USER);
+
+			// SI HAY USUARIO -> PERMITIR ACCESO
+			if (user != null) {
+				chain.doFilter(request, response);
+				return;
+			}
+
+		} catch (Exception ex) {
 			System.out.println("LoginFilter -> " + ex.getMessage());
 		}
-		
-		request.getRequestDispatcher("login.jsp").forward(request, response);
+
+		// SI NO HAY USUARIO -> REDIRIGIR AL LOGIN
+		response.sendRedirect(request.getContextPath() + "/login.jsp");
 	}
+
 }
