@@ -26,8 +26,8 @@ public class AdminFilter extends HttpFilter implements Filter{
 			User user = (User) request.getSession().getAttribute(Attributes.LOGGED_USER);
 			
 			if(user != null && user.getType().equals("ADMIN")) {
-				chain.doFilter(request, response);
 				System.out.println("AdminFilter -> Administrador '" + user.getUsername() + "': entrado en secured");
+				chain.doFilter(request, response);
 				return;
 			} else {
 				System.out.println("AdminFilter -> Usuario '" + user.getUsername() + "': acceso no permitido");

@@ -21,11 +21,11 @@ public class LoginFilter extends HttpFilter implements Filter{
 			// PONER EL FILTRO CORRESPONDIENTE (SANTIAGO)
 			
 			chain.doFilter(request, response);
-			
+			return;
 		} catch(Exception ex) {
 			System.out.println("LoginFilter -> " + ex.getMessage());
 		}
 		
-		request.getRequestDispatcher("login.jsp").forward(request, response);
+		if(!response.isCommitted()) request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 }

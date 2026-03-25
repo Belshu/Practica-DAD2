@@ -40,8 +40,11 @@ public class InitializeContexts implements ServletContextListener{
 		usuarios.put("0_" + admin.getType(), admin);
 		usuarios.put("0_" + student.getType(), student);
 		titulaciones.put(tit.getId(), tit);
+		titulaciones.put("1", new Titulation("1", "TITULACION 1"));
+		titulaciones.put("2", new Titulation("2", "TITULACION 2"));
+		titulaciones.put("3", new Titulation("3", "TITULACION 3"));
 		
 		sce.getServletContext().setAttribute(Attributes.USUARIOS, usuarios);
-		sce.getServletContext().setAttribute(Attributes.USUARIOS, titulaciones);
+		sce.getServletContext().setAttribute(Attributes.TITULACIONES, titulaciones);
 	}
 }
