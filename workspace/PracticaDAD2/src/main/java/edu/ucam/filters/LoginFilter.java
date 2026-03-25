@@ -24,17 +24,6 @@ public class LoginFilter extends HttpFilter implements Filter{
 	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		try {
-<<<<<<< HEAD
-			// PONER EL FILTRO CORRESPONDIENTE (SANTIAGO)
-			
-			chain.doFilter(request, response);
-			return;
-		} catch(Exception ex) {
-			System.out.println("LoginFilter -> " + ex.getMessage());
-		}
-		
-		if(!response.isCommitted()) request.getRequestDispatcher("login.jsp").forward(request, response);
-=======
 			// OBTENER USUARIO DE SESIÓN
 			User user = (User) request.getSession().getAttribute(Attributes.LOGGED_USER);
 
@@ -43,14 +32,12 @@ public class LoginFilter extends HttpFilter implements Filter{
 				chain.doFilter(request, response);
 				return;
 			}
-
-		} catch (Exception ex) {
+		} catch(Exception ex) {
 			System.out.println("LoginFilter -> " + ex.getMessage());
 		}
-
+		
 		// SI NO HAY USUARIO -> REDIRIGIR AL LOGIN
 		response.sendRedirect(request.getContextPath() + "/login.jsp");
->>>>>>> main
 	}
 
 }

@@ -27,16 +27,10 @@ public class AdminFilter extends HttpFilter implements Filter{
 		try {
 			// OBTENER USUARIO DE SESIÓN
 			User user = (User) request.getSession().getAttribute(Attributes.LOGGED_USER);
-<<<<<<< HEAD
-			
-			if(user != null && user.getType().equals("ADMIN")) {
-				System.out.println("AdminFilter -> Administrador '" + user.getUsername() + "': entrado en secured");
-=======
 
 			// COMPROBAR SI ES ADMIN
 			if (user != null && user.getType().equals("ADMIN")) {
 				System.out.println("AdminFilter -> Administrador '" + user.getUsername() + "' accediendo a zona segura");
->>>>>>> main
 				chain.doFilter(request, response);
 				return;
 			}
@@ -50,5 +44,4 @@ public class AdminFilter extends HttpFilter implements Filter{
 		// SI NO ES ADMIN -> REDIRIGIR A INDEX GENERAL
 		request.getRequestDispatcher("/crud/index.jsp").forward(request, response);
 	}
-
 }
