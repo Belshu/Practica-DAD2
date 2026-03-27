@@ -32,7 +32,7 @@ public class DatasRemove extends Action {
 			request.setAttribute(Attributes.ERROR_MSG, ex.getMessage());
 		}
 		
-		if(!response.isCommitted()) request.getRequestDispatcher("index.jsp").forward(request, response);
+		if(!response.isCommitted()) request.getRequestDispatcher("/crud/index.jsp").forward(request, response);
 	}
 
 	

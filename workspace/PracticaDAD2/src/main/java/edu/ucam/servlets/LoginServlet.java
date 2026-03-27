@@ -32,10 +32,11 @@ public class LoginServlet extends HttpServlet {
 	 */
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// OBTENER PARÁMETROS DEL FORMULARIO
+		String username = request.getParameter(Parameters.USERNAME);
+		String password = request.getParameter(Parameters.PASSWORD);
+
 		try {
-			// OBTENER PARÁMETROS DEL FORMULARIO
-			String username = request.getParameter(Parameters.USERNAME);
-			String password = request.getParameter(Parameters.PASSWORD);
 
 			// OBTENER LISTA DE USUARIOS DEL CONTEXTO
 			Hashtable<String, User> usuarios =
@@ -51,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute(Attributes.LOGGED_USER, user);
 
 				// REDIRECCIÓN
-				response.sendRedirect("crud/index.jsp");
+				request.getRequestDispatcher("crud/index.jsp").forward(request, response);
 				return;
 			}
 

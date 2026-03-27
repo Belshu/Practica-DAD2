@@ -27,7 +27,7 @@ public class ListTitulations extends BodyTagSupport{
 					
 					for(Titulation t : titulations.values()) {
 						pageContext.getOut().println("<p>ID: " + t.getId() + " | NOMBRE: " + t.getNombre() + "</p>" +
-								" <a href='" + ctx + "/modify.jsp?" + Parameters.ID_TIT + "=" + t.getId() + "'>Modificar</a>" +
+								" <a href='" + ctx + "/crud/modify.jsp?" + Parameters.ID_TIT + "=" + t.getId() + "'>Modificar</a>" +
 								" | <a href='" + ctx + "/Control?" + Parameters.ACTION_ID + "=" + ActionID.REMOVE +
 								"&" + Parameters.ID_TIT + "=" + t.getId() + "'>Eliminar</a></p>");
 					}

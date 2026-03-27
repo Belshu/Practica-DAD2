@@ -20,7 +20,7 @@ public class DatasModify extends Action{
 		String nameTit = request.getParameter(Parameters.NAME_TIT);
 		
 		String username = request.getParameter(Parameters.USERNAME);
-		String password = request.getParameter(Parameters.USERNAME);
+		String password = request.getParameter(Parameters.PASSWORD);
 		
 		try {
 			if(idTit != null && nameTit != null) {
@@ -30,12 +30,14 @@ public class DatasModify extends Action{
 				Hashtable <String, User> users = (Hashtable <String, User>) request.getServletContext().getAttribute(Attributes.USUARIOS);
 				UserModify(users, username, password, request);
 				request.getRequestDispatcher("/crud/secured/adminIndex.jsp").forward(request, response);
+			} else {
+				request.setAttribute(Attributes.ERROR_MSG, "Credenciales incorrectas!");
 			}
 		} catch(Exception ex) {
 			request.setAttribute(Attributes.ERROR_MSG, ex.getMessage());
 		}
 		
-		if(!response.isCommitted()) request.getRequestDispatcher("index.jsp").forward(request, response);
+		if(!response.isCommitted()) request.getRequestDispatcher("/crud/index.jsp").forward(request, response);
 	}
 
 	
@@ -43,7 +45,7 @@ public class DatasModify extends Action{
 	
 	// BUSCA TITULATIÓN Y LA ELIMINA
 	private void TituModify (Hashtable<String, Titulation> titulations, String id, String name, HttpServletRequest request) {
-		if(titulations.contains(id)) {
+		if(titulations.containsKey(id)) {
 			titulations.get(id).setNombre(name);
 		} else {
 			request.setAttribute(Attributes.ERROR_MSG, "No se ha encontrado la titulación");
@@ -53,7 +55,7 @@ public class DatasModify extends Action{
 	
 	// BUSCA USUARIO Y LA ELIMINA
 	private void UserModify(Hashtable <String, User> users, String username, String password, HttpServletRequest request) {
-		if(users.contains(username)) {
+		if(users.containsKey(username)) {
 			users.get(username).setPassword(password);
 		} else {
 			request.setAttribute(Attributes.ERROR_MSG, "No se ha encontrado el usuario");

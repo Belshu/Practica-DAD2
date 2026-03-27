@@ -39,5 +39,4 @@ public class LoginFilter extends HttpFilter implements Filter{
 		// SI NO HAY USUARIO -> REDIRIGIR AL LOGIN
 		response.sendRedirect(request.getContextPath() + "/login.jsp");
 	}
-
 }

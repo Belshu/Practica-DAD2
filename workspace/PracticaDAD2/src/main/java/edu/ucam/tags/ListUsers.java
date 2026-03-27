@@ -27,7 +27,7 @@ public class ListUsers extends BodyTagSupport{
 					for(User u : users.values()) {
 						pageContext.getOut().println("<p>NOMBRE: " + u.getUsername() + " | CONTRASEÑA: " + u.getPassword()
 						+ " | TIPO: " + u.getType() + "</p>" + 
-						" <a href='" + ctx + "/adminModify.jsp?" + Parameters.USERNAME + "=" + u.getUsername() + "'>Modificar</a>" +
+						" <a href='" + ctx + "/crud/secured/adminModify.jsp?" + Parameters.USERNAME + "=" + u.getUsername() + "'>Modificar</a>" +
 						" | <a href='" + ctx + "/Control?" + Parameters.ACTION_ID + "=" + ActionID.REMOVE +
 						"&" + Parameters.USERNAME + "=" + u.getUsername() + "'>Eliminar</a></p>");
 

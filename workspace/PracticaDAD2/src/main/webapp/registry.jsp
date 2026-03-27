@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 <%@page import="edu.ucam.config.UserTypes"%>
-=======
 <%@page import="edu.ucam.config.Parameters"%>
->>>>>>> origin/implementar-MVC
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="edu.ucam.config.UserTypes" %>

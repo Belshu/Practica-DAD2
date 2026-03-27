@@ -14,9 +14,9 @@
     <h2>Iniciar sesión</h2>
 
     Usuario:
-    <input type="text" name="<%= edu.ucam.config.Parameters.USERNAME %>" required><br>
+    <input type="text" name="<%= edu.ucam.config.Parameters.USERNAME %>" value="admin" required><br>
     Contraseña:
-    <input type="password" name="<%= edu.ucam.config.Parameters.PASSWORD %>" required><br>
+    <input type="password" name="<%= edu.ucam.config.Parameters.PASSWORD %>" value="admin" required><br>
     <input type="submit" value="Entrar">
 	<br>
 	<br>

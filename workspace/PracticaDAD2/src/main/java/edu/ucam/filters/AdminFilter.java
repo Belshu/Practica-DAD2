@@ -3,6 +3,7 @@ package edu.ucam.filters;
 import java.io.IOException;
 
 import edu.ucam.config.Attributes;
+import edu.ucam.config.UserTypes;
 import edu.ucam.domain.User;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -29,7 +30,7 @@ public class AdminFilter extends HttpFilter implements Filter{
 			User user = (User) request.getSession().getAttribute(Attributes.LOGGED_USER);
 
 			// COMPROBAR SI ES ADMIN
-			if (user != null && user.getType().equals("ADMIN")) {
+			if (user != null && user.getType().equals(UserTypes.ADMIN)) {
 				System.out.println("AdminFilter -> Administrador '" + user.getUsername() + "' accediendo a zona segura");
 				chain.doFilter(request, response);
 				return;

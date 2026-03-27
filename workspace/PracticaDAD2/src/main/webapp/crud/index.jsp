@@ -11,10 +11,22 @@
 </head>
 <body>
 <h1>Lista de titulaciones</h1>
-<dad2:listtit/>
-
 <form action="<%= request.getContextPath() %>/crud/secured/adminIndex.jsp">
 	<input type="submit" value="Ir a opciones de administrador">
 </form>
+
+<!-- HACER FORMULARIO PARA AÑADIR NUEVAS TITULACIONES -->
+
+
+<dad2:listtit/>
+
+<% 
+	String error = (String) request.getAttribute(edu.ucam.config.Attributes.ERROR_MSG);
+        
+    if(error != null) {
+        %><p style="color:red;">Error: <%= error %></p><%
+    }
+%>
+
 </body>
 </html>
