@@ -2,7 +2,9 @@ package edu.ucam.tags;
 
 import java.util.Hashtable;
 
+import edu.ucam.config.ActionID;
 import edu.ucam.config.Attributes;
+import edu.ucam.config.Parameters;
 import edu.ucam.domain.Titulation;
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.BodyTagSupport;
@@ -18,11 +20,16 @@ public class ListTitulations extends BodyTagSupport{
 			Hashtable <String, Titulation> titulations = (Hashtable <String, Titulation>)
 					pageContext.getServletContext().getAttribute(Attributes.TITULACIONES);
 			
+			String ctx = pageContext.getServletContext().getContextPath();
+			
 			if(titulations != null) {
 				if(titulations.size() > 0) {
-					String contextPath = pageContext.getRequest().getServletContext().getContextPath();
+					
 					for(Titulation t : titulations.values()) {
-						pageContext.getOut().println("<p>ID: " + t.getId() + " | NOMBRE: " + t.getNombre() + "</p>");
+						pageContext.getOut().println("<p>ID: " + t.getId() + " | NOMBRE: " + t.getNombre() + "</p>" +
+								" <a href='" + ctx + "/modify.jsp?" + Parameters.ID_TIT + "=" + t.getId() + "'>Modificar</a>" +
+								" | <a href='" + ctx + "/Control?" + Parameters.ACTION_ID + "=" + ActionID.REMOVE +
+								"&" + Parameters.ID_TIT + "=" + t.getId() + "'>Eliminar</a></p>");
 					}
 				} else {
 					pageContext.getOut().println("<p>Lista vacía!</p>");
