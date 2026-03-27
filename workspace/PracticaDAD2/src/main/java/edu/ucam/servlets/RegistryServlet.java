@@ -10,6 +10,7 @@ import java.util.Hashtable;
 
 import edu.ucam.config.Attributes;
 import edu.ucam.config.Parameters;
+import edu.ucam.config.UserTypes;
 import edu.ucam.domain.Admin;
 import edu.ucam.domain.Student;
 import edu.ucam.domain.User;
@@ -30,12 +31,13 @@ public class RegistryServlet extends HttpServlet {
     }
 
 	
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// OBTENER PARÁMETROS DEL FORMULARIO
 			String username = request.getParameter(Parameters.USERNAME);
 			String password = request.getParameter(Parameters.PASSWORD);
-			String type = request.getParameter("type"); // ADMIN o STUDENT
+			String type = request.getParameter(Parameters.USERTYPE); // ADMIN o STUDENT
 
 			// OBTENER LISTA DE USUARIOS DEL CONTEXTO
 			Hashtable<String, User> usuarios =
@@ -51,7 +53,7 @@ public class RegistryServlet extends HttpServlet {
 			// CREAR NUEVO USUARIO SEGÚN EL TIPO
 			User newUser;
 			
-			if (type.equals("ADMIN")) {
+			if (type.equals(UserTypes.ADMIN)) {
 				newUser = new Admin(username, password);
 			} else {
 				newUser = new Student(username, password);

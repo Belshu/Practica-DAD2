@@ -1,3 +1,4 @@
+<%@page import="edu.ucam.config.UserTypes"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,9 +19,9 @@
     <input type="password" name="<%= edu.ucam.config.Parameters.PASSWORD %>" required><br>
 
     Tipo de usuario:
-    <select name="type">
-        <option value="STUDENT">Alumno</option>
-        <option value="ADMIN">Administrador</option>
+    <select name="<%= edu.ucam.config.Parameters.USERTYPE %>">
+        <option value="<%= UserTypes.STUDENT %>">Alumno</option>
+        <option value="<%= UserTypes.ADMIN %>">Administrador</option>
     </select><br>
 
     <input type="submit" value="Crear cuenta">
