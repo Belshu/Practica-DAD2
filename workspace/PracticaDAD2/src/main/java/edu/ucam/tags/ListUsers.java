@@ -2,7 +2,9 @@ package edu.ucam.tags;
 
 import java.util.Hashtable;
 
+import edu.ucam.config.ActionID;
 import edu.ucam.config.Attributes;
+import edu.ucam.config.Parameters;
 import edu.ucam.domain.User;
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.BodyTagSupport;
@@ -10,7 +12,7 @@ import jakarta.servlet.jsp.tagext.BodyTagSupport;
 public class ListUsers extends BodyTagSupport{
 	private static final long serialVersionUID = 1L;
 
-	// HACER LOGICA PARA IMPRIMIR USUARIOS CON SUS OPCIONES DE MODIFICAR Y ELIMINAR
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public int doStartTag() throws JspException {
@@ -18,11 +20,17 @@ public class ListUsers extends BodyTagSupport{
 			Hashtable <String, User> users = (Hashtable <String, User>) 
 					pageContext.getServletContext().getAttribute(Attributes.USUARIOS);
 			
+			String ctx = pageContext.getServletContext().getContextPath();
+
 			if(users != null) {
 				if(users.size() > 0) {
 					for(User u : users.values()) {
 						pageContext.getOut().println("<p>NOMBRE: " + u.getUsername() + " | CONTRASEÑA: " + u.getPassword()
-						+ " | TIPO: " + u.getType() + "</p>");
+						+ " | TIPO: " + u.getType() + "</p>" + 
+						" <a href='" + ctx + "/adminModify.jsp?" + Parameters.USERNAME + "=" + u.getUsername() + "'>Modificar</a>" +
+						" | <a href='" + ctx + "/Control?" + Parameters.ACTION_ID + "=" + ActionID.REMOVE +
+						"&" + Parameters.USERNAME + "=" + u.getUsername() + "'>Eliminar</a></p>");
+
 					}
 				} else {
 					pageContext.getOut().print("<p>Lista vacía!</p>");
