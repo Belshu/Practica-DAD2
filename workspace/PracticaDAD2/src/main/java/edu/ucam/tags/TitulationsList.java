@@ -7,7 +7,7 @@ import edu.ucam.domain.Titulation;
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.BodyTagSupport;
 
-public class ListTitulations extends BodyTagSupport{
+public class TitulationsList extends BodyTagSupport{
 	private static final long serialVersionUID = 1L;
 
 	// HACER LOGICA PARA IMPRIMIR TITULACIONES CON SUS OPCIONES DE MODIFICAR Y ELIMINAR 
