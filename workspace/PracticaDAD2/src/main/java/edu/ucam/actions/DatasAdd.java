@@ -24,7 +24,7 @@ public class DatasAdd extends Action {
 			String nameTit = request.getParameter(Parameters.NAME_TIT);
 			
 			String username = request.getParameter(Parameters.USERNAME);
-			String password = request.getParameter(Parameters.USERNAME);
+			String password = request.getParameter(Parameters.PASSWORD);
 			String type = request.getParameter(Parameters.USERTYPE);
 			
 			
@@ -46,7 +46,7 @@ public class DatasAdd extends Action {
 			request.setAttribute(Attributes.ERROR_MSG, ex.getMessage());
 		}
 		
-		if(!response.isCommitted()) request.getRequestDispatcher("index.jsp").forward(request, response);
+		if(!response.isCommitted()) request.getRequestDispatcher("/crud/index.jsp").forward(request, response);
 	}
 	
 	
@@ -81,6 +81,6 @@ public class DatasAdd extends Action {
 			return;
 		}
 		
-		users.put(type, user);
+		users.put(username, user);
 	}
 }

@@ -28,7 +28,7 @@
     </select><br>
 
     <input type="submit" value="Crear cuenta">
-	
+	<br><br>
 	Error:
     <p style="color:red;">
         <%= request.getAttribute(edu.ucam.config.Attributes.ERROR_MSG) %>

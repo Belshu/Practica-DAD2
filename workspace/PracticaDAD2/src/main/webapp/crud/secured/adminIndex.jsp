@@ -15,7 +15,29 @@
 	<input type="submit" value="Volver a opciones de usuario">
 </form>
 
-<!-- HACER FORMULARIO PARA AÑADIR NUEVOS USUARIOS -->
+<!-- FORMULARIO PARA AÑADIR UN NUEVO USUARIO -->
+<h2>Añadir nuevo usuario</h2>
+
+<form action="<%= request.getContextPath() %>/Control" method="post">
+
+    <input type="hidden" name="<%= Parameters.ACTION_ID %>" value="<%= ActionID.ADD %>">
+
+    Usuario:
+    <input type="text" name="<%= Parameters.USERNAME %>" required>
+	<br><br>
+    Contraseña:
+    <input type="text" name="<%= Parameters.PASSWORD %>" required>
+	<br><br>
+    Tipo:
+    <select name="<%= Parameters.USERTYPE %>">
+        <option value="<%= UserTypes.STUDENT %>">Alumno</option>
+        <option value="<%= UserTypes.ADMIN %>">Administrador</option>
+    </select>
+	<br><br>
+    <input type="submit" value="Añadir usuario">
+    <br><br>
+</form>
+
 
 <dad2:listusers/>
 

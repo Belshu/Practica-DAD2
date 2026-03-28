@@ -15,7 +15,27 @@
 	<input type="submit" value="Ir a opciones de administrador">
 </form>
 
-<!-- HACER FORMULARIO PARA AÑADIR NUEVAS TITULACIONES -->
+<!-- FORMULARIO PARA AÑADIR UNA NUEVA TITULACIÓN -->
+<h2>Añadir nueva titulación</h2>
+
+<form action="<%= request.getContextPath() %>/Control" method="post">
+
+    <!-- ACCIÓN QUE SE VA A REALIZAR (AÑADIR) -->
+    <input type="hidden" name="<%= Parameters.ACTION_ID %>" value="<%= edu.ucam.config.ActionID.ADD %>">
+
+    <!-- ID DE LA TITULACIÓN -->
+    ID: <input type="text" name="<%= Parameters.ID_TIT %>" required>
+
+    <br><br>
+
+    <!-- NOMBRE DE LA TITULACIÓN -->
+    Nombre: <input type="text" name="<%= Parameters.NAME_TIT %>" required>
+
+    <br><br>
+
+    <input type="submit" value="Añadir titulación">
+</form>
+
 
 
 <dad2:listtit/>
