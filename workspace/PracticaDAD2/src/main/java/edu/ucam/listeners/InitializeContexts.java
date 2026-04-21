@@ -26,9 +26,60 @@ public class InitializeContexts implements ServletContextListener{
 	/**
 	 * MÁS ADELANTE: GUARDAR EN BBDD LOS HASHTABLE
 	 * */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		System.out.println("InitializeContexts -> destruyendo contexto...");
+		
+		Hashtable <String, User> usuarios = (Hashtable <String, User>) sce.getServletContext().getAttribute(Attributes.USUARIOS);
+		Hashtable <String, Titulation> titulaciones = (Hashtable <String, Titulation>) sce.getServletContext().getAttribute(Attributes.TITULACIONES);
+		
+		Connection conexion = (Connection) sce.getServletContext().getAttribute(Attributes.CONEXION);
+		
+		try {
+			try {
+				
+				// ACTUALIZAR USUARIOS -----------------------------------------------------------------------------------------
+				if(usuarios != null) {
+					try (PreparedStatement psDelete = conexion.prepareStatement("DELETE FROM users")) {
+                        psDelete.executeUpdate();
+                    }
+					
+					try (PreparedStatement psInsert = conexion.prepareStatement("INSERT INTO users (username, password, type) VALUES (?, ?, ?)")) {
+		                for (User u : usuarios.values()) {
+		                    psInsert.setString(1, u.getUsername());
+		                    psInsert.setString(2, u.getPassword());
+		                    psInsert.setString(3, u.getType());
+		                    psInsert.addBatch();
+		                }
+		                psInsert.executeUpdate();
+		            }
+				}
+				
+				// ACTUALIZAR TITULACIONES -----------------------------------------------------------------------------------------
+				if(titulaciones != null) {
+					try (PreparedStatement psDelete = conexion.prepareStatement("DELETE FROM titulations")) {
+                        psDelete.executeUpdate();
+                    }
+
+                    try (PreparedStatement psInsert = conexion.prepareStatement(
+                            "INSERT INTO titulations (id, nombre) VALUES (?, ?)")) {
+
+                        for (Titulation t : titulaciones.values()) {
+                            psInsert.setString(1, t.getId());
+                            psInsert.setString(2, t.getNombre());
+                            psInsert.addBatch();
+                        }
+
+                        psInsert.executeUpdate();
+                    }
+				}
+			} catch (SQLException ex) {
+	            System.out.println("InitializeContexts -> " + ex.getMessage());
+	        }
+		} catch(Exception ex) {
+			System.out.println("InitializeContexts -> " + ex.getMessage());
+		}
 	}
 
 	
@@ -73,8 +124,17 @@ public class InitializeContexts implements ServletContextListener{
 					usuarios.put(rs.getString("username"), new Student(rs.getString("username"), rs.getString("password")));
 				}
 			}
+			ps.executeBatch();
+
+			PreparedStatement ps2 = conexion.prepareStatement("SELECT * FROM Titulations");
+			rs = ps2.executeQuery();
 			
-			sce.getServletContext().setAttribute("CONEXION", conexion);
+			while(rs.next()) {
+				titulaciones.put(rs.getString("id"), new Titulation(rs.getString("id"), rs.getString("nombre")));
+			}
+			ps2.executeBatch();
+
+			sce.getServletContext().setAttribute(Attributes.CONEXION, conexion);
 		} catch(NamingException ex) {
 			System.out.println("InitializeContext -> " + ex.getMessage());
 		} catch(SQLException ex) {

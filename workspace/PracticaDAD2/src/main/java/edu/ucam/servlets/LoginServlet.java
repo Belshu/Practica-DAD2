@@ -37,7 +37,6 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter(Parameters.PASSWORD);
 
 		try {
-
 			// OBTENER LISTA DE USUARIOS DEL CONTEXTO
 			Hashtable<String, User> usuarios =
 					(Hashtable<String, User>) request.getServletContext().getAttribute(Attributes.USUARIOS);
@@ -65,7 +64,6 @@ public class LoginServlet extends HttpServlet {
 		// REDIRIGIDO AL LOGIN
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
-
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

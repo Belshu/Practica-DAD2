@@ -11,10 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Hashtable;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
 import edu.ucam.config.Attributes;
 import edu.ucam.config.Parameters;
 import edu.ucam.config.UserTypes;
@@ -70,12 +66,7 @@ public class RegistryServlet extends HttpServlet {
 			usuarios.put(username, newUser);
 			
 			// METERLO A LA BBDD
-			/*
-			Context initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			DataSource ds = (DataSource) envCtx.lookup("jdbc/dad2_24420162G_48845233H");
-			*/
-			Connection conexion = (Connection) request.getServletContext().getAttribute("CONEXION");
+			Connection conexion = (Connection) request.getServletContext().getAttribute(Attributes.CONEXION);
 			PreparedStatement ps = conexion.prepareStatement("INSERT INTO Users (username, password, type)"
 					+ " VALUES ('" + newUser.getUsername() + "','" + newUser.getPassword() + "','" + newUser.getType() + "')");
 			

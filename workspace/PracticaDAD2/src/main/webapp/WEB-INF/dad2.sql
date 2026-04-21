@@ -1,9 +1,14 @@
+-- =========================
+-- CREAR BASE DE DATOS
+-- =========================
+CREATE DATABASE IF NOT EXISTS dad2_24420162G_48845233H;
 
+USE dad2_24420162G_48845233H;
 
 -- =========================
 -- USUARIOS DEL SISTEMA
 -- =========================
-CREATE TABLE Users (
+CREATE TABLE IF NOT EXISTS Users (
 	username VARCHAR(50) NOT NULL,
 	password VARCHAR(100) NOT NULL,
 	type VARCHAR(20) NOT NULL,
@@ -14,7 +19,7 @@ CREATE TABLE Users (
 -- =========================
 -- TITULACIONES
 -- =========================
-CREATE TABLE Titulations (
+CREATE TABLE IF NOT EXISTS Titulations (
     id VARCHAR(20) NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     PRIMARY KEY (id),
