@@ -9,7 +9,7 @@ import edu.ucam.domain.User;
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.BodyTagSupport;
 
-public class ListUsers extends BodyTagSupport{
+public class UsersList extends BodyTagSupport{
 	private static final long serialVersionUID = 1L;
 
 
