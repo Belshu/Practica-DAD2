@@ -6,7 +6,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Hashtable;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 import edu.ucam.config.Attributes;
 import edu.ucam.config.Parameters;
@@ -61,9 +68,26 @@ public class RegistryServlet extends HttpServlet {
 			
 			// AÑADIR USUARIO A LA HASHTABLE
 			usuarios.put(username, newUser);
-			// REDIRIGIR AL LOGIN
-			response.sendRedirect("login.jsp");
-
+			
+			// METERLO A LA BBDD
+			/*
+			Context initCtx = new InitialContext();
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			DataSource ds = (DataSource) envCtx.lookup("jdbc/dad2_24420162G_48845233H");
+			*/
+			Connection conexion = (Connection) request.getServletContext().getAttribute("CONEXION");
+			PreparedStatement ps = conexion.prepareStatement("INSERT INTO Users (username, password, type)"
+					+ " VALUES ('" + newUser.getUsername() + "','" + newUser.getPassword() + "','" + newUser.getType() + "')");
+			
+			int files = ps.executeUpdate();
+			
+			if(files > 0) {
+				// REDIRIGIR AL LOGIN
+				response.sendRedirect("login.jsp");
+			} else {
+				request.setAttribute(Attributes.ERROR_MSG, "No se pudo registrar el usuario.");
+	            request.getRequestDispatcher("registry.jsp").forward(request, response);
+			}
 		} catch(Exception ex) {
 			System.out.println("LoginServlet -> " + ex.getMessage());
 		}

@@ -7,14 +7,14 @@
 	
     <tag>
     	<name>listtit</name>
-        <tag-class>edu.ucam.tags.ListTitulations</tag-class>
+        <tag-class>edu.ucam.tags.TitulationsList</tag-class>
         <body-content>empty</body-content>
         <info>Lista de titulaciones</info>
     </tag>
     
     <tag>
     	<name>listusers</name>
-        <tag-class>edu.ucam.tags.ListUsers</tag-class>
+        <tag-class>edu.ucam.tags.UsersList</tag-class>
         <body-content>empty</body-content>
         <info>Lista de usuarios</info>
     </tag>
