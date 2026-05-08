@@ -10,9 +10,11 @@ import java.io.IOException;
 import java.util.Hashtable;
 
 import edu.ucam.actions.Action;
-import edu.ucam.actions.DatasAdd;
-import edu.ucam.actions.DatasModify;
-import edu.ucam.actions.DatasRemove;
+import edu.ucam.actions.users.UserAdd;
+import edu.ucam.actions.users.UserModify;
+import edu.ucam.actions.users.UserRemove;
+import edu.ucam.actions.TitAdd;
+import edu.ucam.actions.TitRemove;
 import edu.ucam.config.ActionID;
 import edu.ucam.config.Attributes;
 import edu.ucam.config.Parameters;
@@ -38,9 +40,18 @@ public class Control extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		actions = new Hashtable<String, Action>();
 		
-		actions.put(ActionID.ADD, new DatasAdd());
-		actions.put(ActionID.REMOVE, new DatasRemove());
-		actions.put(ActionID.MODIFY, new DatasModify());
+		// AÑADIR
+		actions.put(ActionID.ADDTIT, new TitAdd());
+		actions.put(ActionID.ADDUSER, new UserAdd());
+		
+		
+		// ELIINAR
+		actions.put(ActionID.REMOVETIT, new TitRemove());
+		actions.put(ActionID.REMOVEUSER, new UserRemove());
+		
+		
+		// MODIFICAR
+		actions.put(ActionID.MODIFYTIT, new UserModify());
 	}
 
 
@@ -50,6 +61,7 @@ public class Control extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// PONER LÓGICA PARA GESTIONAR TODOS LOS MOVIMIENTOS DE LOS SERVLETS (SALVO LOGIN Y REGISTRY)
 		String actionId = request.getParameter(Parameters.ACTION_ID);
+		// System.out.println("Control -> " + actionId);
 		
 		if(actionId != null && actions.containsKey(actionId)) {
 			actions.get(actionId).execute(request, response);

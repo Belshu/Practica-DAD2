@@ -28,9 +28,8 @@ public class UsersList extends BodyTagSupport{
 						pageContext.getOut().println("<p>NOMBRE: " + u.getUsername() + " | CONTRASEÑA: " + u.getPassword()
 						+ " | TIPO: " + u.getType() + "</p>" + 
 						" <a href='" + ctx + "/crud/secured/adminModify.jsp?" + Parameters.USERNAME + "=" + u.getUsername() + "'>Modificar</a>" +
-						" | <a href='" + ctx + "/Control?" + Parameters.ACTION_ID + "=" + ActionID.REMOVE +
+						" | <a href='" + ctx + "/Control?" + Parameters.ACTION_ID + "=" + ActionID.REMOVEUSER +
 						"&" + Parameters.USERNAME + "=" + u.getUsername() + "'>Eliminar</a></p>");
-
 					}
 				} else {
 					pageContext.getOut().print("<p>Lista vacía!</p>");

@@ -21,7 +21,7 @@
 <form action="<%= request.getContextPath() %>/Control" method="post">
 
     <!-- ACCIÓN QUE SE VA A REALIZAR (AÑADIR) -->
-    <input type="hidden" name="<%= Parameters.ACTION_ID %>" value="<%= edu.ucam.config.ActionID.ADD %>">
+    <input type="hidden" name="<%= Parameters.ACTION_ID %>" value="<%=edu.ucam.config.ActionID.ADDTIT%>">
 
     <!-- ID DE LA TITULACIÓN -->
     ID: <input type="text" name="<%= Parameters.ID_TIT %>" required>

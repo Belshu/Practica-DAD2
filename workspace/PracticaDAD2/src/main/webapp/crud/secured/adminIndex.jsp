@@ -20,7 +20,7 @@
 
 <form action="<%= request.getContextPath() %>/Control" method="post">
 
-    <input type="hidden" name="<%= Parameters.ACTION_ID %>" value="<%= ActionID.ADD %>">
+    <input type="hidden" name="<%= Parameters.ACTION_ID %>" value="<%=ActionID.ADDUSER%>">
 
     Usuario:
     <input type="text" name="<%= Parameters.USERNAME %>" required>
