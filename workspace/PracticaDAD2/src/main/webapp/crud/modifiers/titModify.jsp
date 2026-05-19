@@ -12,11 +12,6 @@
 <body>
 
 <%
-    System.out.println("-------- modify.jsp -> Nombre esperado del parámetro: " + Parameters.ID_TIT + "<br>");
-    System.out.println("-------- modify.jsp -> Valor recibido: " + request.getParameter(Parameters.ID_TIT) + "<br>");
-%>
-
-<%
 	String id = request.getParameter(Parameters.ID_TIT);
 	Hashtable<String, Titulation> titu = (Hashtable<String, Titulation>) request.getServletContext().getAttribute(Attributes.TITULACIONES);
 

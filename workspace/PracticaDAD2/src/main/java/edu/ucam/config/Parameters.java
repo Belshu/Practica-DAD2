@@ -9,4 +9,7 @@ public class Parameters {
 	
 	// PARÁMETROS DE TITULACION
 	public static final String ID_TIT = "identificador_titulo", NAME_TIT = "nombre_titulo"; 
+	
+	// PARÁMETROS DE ASIGNATURAS
+	public static final String ID_SUB = "identificador_asignatura", NAME_SUB = "nombre_asignatura", CREDITS_SUB = "CREDITOS";
 }

@@ -1,4 +1,4 @@
-package edu.ucam.actions;
+package edu.ucam.actions.titulations;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Hashtable;
 
+import edu.ucam.actions.Action;
 import edu.ucam.config.Attributes;
 import edu.ucam.config.Parameters;
 import edu.ucam.domain.Titulation;
@@ -26,7 +27,8 @@ public class TitAdd extends Action{
 			try {
 				if(idTit != null && nameTit != null) {
 					Connection conexion = (Connection) request.getServletContext().getAttribute(Attributes.CONEXION);
-					Hashtable <String, Titulation> titulations = (Hashtable <String, Titulation>) request.getServletContext().getAttribute(Attributes.TITULACIONES);
+					Hashtable <String, Titulation> titulations = 
+							(Hashtable <String, Titulation>) request.getServletContext().getAttribute(Attributes.TITULACIONES);
 					newTitu(titulations, idTit, nameTit, request, conexion);
 				}
 			} catch(Exception ex) {

@@ -13,6 +13,13 @@
     </tag>
     
     <tag>
+    	<name>listsub</name>
+        <tag-class>edu.ucam.tags.SubjectsList</tag-class>
+        <body-content>empty</body-content>
+        <info>Lista de asignaturas</info>
+    </tag>
+    
+    <tag>
     	<name>listusers</name>
         <tag-class>edu.ucam.tags.UsersList</tag-class>
         <body-content>empty</body-content>

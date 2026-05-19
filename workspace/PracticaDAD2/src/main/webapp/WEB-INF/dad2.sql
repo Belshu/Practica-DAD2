@@ -26,6 +26,18 @@ CREATE TABLE IF NOT EXISTS Titulations (
     UNIQUE KEY uk_titulation_nombre (nombre)
 );
 
+-- =========================
+-- ASIGNATURAS
+-- =========================
+CREATE TABLE IF NOT EXISTS Subjects (
+	id VARCHAR(20) NOT NULL,
+	tit_id VARCHAR(20) NOT NULL,
+	nombre VARCHAR(100) NOT NULL,
+	creditos INT NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (tit_id) REFERENCES Titulations(id)
+);
+
 
 -- Datos opcionales de prueba
 INSERT INTO Users (username, password, type)

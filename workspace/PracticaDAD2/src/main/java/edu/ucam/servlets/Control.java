@@ -10,11 +10,13 @@ import java.io.IOException;
 import java.util.Hashtable;
 
 import edu.ucam.actions.Action;
+import edu.ucam.actions.subjects.SubAdd;
 import edu.ucam.actions.users.UserAdd;
 import edu.ucam.actions.users.UserModify;
 import edu.ucam.actions.users.UserRemove;
-import edu.ucam.actions.TitAdd;
-import edu.ucam.actions.TitRemove;
+import edu.ucam.actions.titulations.TitAdd;
+import edu.ucam.actions.titulations.TitModify;
+import edu.ucam.actions.titulations.TitRemove;
 import edu.ucam.config.ActionID;
 import edu.ucam.config.Attributes;
 import edu.ucam.config.Parameters;
@@ -43,6 +45,7 @@ public class Control extends HttpServlet {
 		// AÑADIR
 		actions.put(ActionID.ADDTIT, new TitAdd());
 		actions.put(ActionID.ADDUSER, new UserAdd());
+		actions.put(ActionID.ADDSUB, new SubAdd());
 		
 		
 		// ELIINAR
@@ -51,7 +54,8 @@ public class Control extends HttpServlet {
 		
 		
 		// MODIFICAR
-		actions.put(ActionID.MODIFYTIT, new UserModify());
+		actions.put(ActionID.MODIFYUSER, new UserModify());
+		actions.put(ActionID.MODIFYTIT, new TitModify());
 	}
 
 

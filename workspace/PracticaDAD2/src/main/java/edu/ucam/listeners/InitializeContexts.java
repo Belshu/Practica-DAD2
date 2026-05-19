@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import edu.ucam.config.Attributes;
 import edu.ucam.domain.Admin;
 import edu.ucam.domain.Student;
+import edu.ucam.domain.Subject;
 import edu.ucam.domain.Titulation;
 import edu.ucam.domain.User;
 import jakarta.servlet.ServletContextEvent;
@@ -33,6 +34,7 @@ public class InitializeContexts implements ServletContextListener{
 		
 		Hashtable <String, User> usuarios = (Hashtable <String, User>) sce.getServletContext().getAttribute(Attributes.USUARIOS);
 		Hashtable <String, Titulation> titulaciones = (Hashtable <String, Titulation>) sce.getServletContext().getAttribute(Attributes.TITULACIONES);
+		Hashtable <String, Subject> subjects = (Hashtable <String, Subject>) sce.getServletContext().getAttribute(Attributes.ASIGNATURAS);
 		
 		Connection conexion = (Connection) sce.getServletContext().getAttribute(Attributes.CONEXION);
 		
@@ -45,7 +47,8 @@ public class InitializeContexts implements ServletContextListener{
                         psDelete.executeUpdate();
                     }
 					
-					try (PreparedStatement psInsert = conexion.prepareStatement("INSERT INTO users (username, password, type) VALUES (?, ?, ?)")) {
+					try (PreparedStatement psInsert = conexion.prepareStatement(
+							"INSERT INTO users (username, password, type) VALUES (?, ?, ?)")) {
 		                for (User u : usuarios.values()) {
 		                    psInsert.setString(1, u.getUsername());
 		                    psInsert.setString(2, u.getPassword());
@@ -74,6 +77,27 @@ public class InitializeContexts implements ServletContextListener{
                         psInsert.executeUpdate();
                     }
 				}
+				
+				// ACTUALIZAR ASIGNATURAS -----------------------------------------------------------------------------------------
+				if(subjects != null) {
+					try (PreparedStatement psDelete = conexion.prepareStatement("DELETE FROM Subjects")){
+						psDelete.executeUpdate();
+					}
+					
+					try (PreparedStatement psInsert = conexion.prepareStatement(
+                            "INSERT INTO subjects (id, id_tit, nombre, credits) VALUES (?, ?, ?, ?)")) {
+
+                        for (Subject s : subjects.values()) {
+                            psInsert.setString(1, s.getId());
+                            psInsert.setString(2, s.getIdTit());
+                            psInsert.setString(3, s.getNombre());
+                            psInsert.setInt(4, s.getCredits());
+                            psInsert.addBatch();
+                        }
+
+                        psInsert.executeUpdate();
+                    }
+				}
 			} catch (SQLException ex) {
 	            System.out.println("InitializeContexts -> " + ex.getMessage());
 	        }
@@ -92,6 +116,7 @@ public class InitializeContexts implements ServletContextListener{
 		
 		Hashtable <String, User> usuarios = new Hashtable<>();
 		Hashtable <String, Titulation> titulaciones = new Hashtable<>();
+		Hashtable <String, Subject> subjects = new Hashtable<>();
 		
 		/* PONER USUARIOS MEDIANTE CÓDIGO --------------------------------------------------------- 
 		Admin admin = new Admin("admin", "admin");
@@ -111,9 +136,10 @@ public class InitializeContexts implements ServletContextListener{
 			Context initCtx = new InitialContext();
 			Context envCtx = (Context) initCtx.lookup("java:comp/env");
 			DataSource ds = (DataSource) envCtx.lookup("jdbc/dad2_24420162G_48845233H");
-			
 			Connection conexion = ds.getConnection();
 			
+			
+			// EXTRAER DATOS DE USUARIOS --------------------------------------------------------
 			PreparedStatement ps = conexion.prepareStatement("SELECT * FROM Users");
 			ResultSet rs = ps.executeQuery();
 			
@@ -126,6 +152,8 @@ public class InitializeContexts implements ServletContextListener{
 			}
 			ps.executeBatch();
 
+			
+			// EXTRAER DATOS DE TITULACIONES --------------------------------------------------------
 			PreparedStatement ps2 = conexion.prepareStatement("SELECT * FROM Titulations");
 			rs = ps2.executeQuery();
 			
@@ -133,6 +161,17 @@ public class InitializeContexts implements ServletContextListener{
 				titulaciones.put(rs.getString("id"), new Titulation(rs.getString("id"), rs.getString("nombre")));
 			}
 			ps2.executeBatch();
+			
+			
+			// EXTRAER DATOS DE ASIGNATURAS --------------------------------------------------------
+			PreparedStatement ps3 = conexion.prepareStatement("SELECT * FROM Subjects");
+			rs = ps3.executeQuery();
+			
+			while(rs.next()) {
+				subjects.put(rs.getString("id"), 
+						new Subject(rs.getString("id"), rs.getString("id_tit"), rs.getString("nombre"), rs.getInt("creditos")));
+			}
+			ps3.executeBatch();
 
 			sce.getServletContext().setAttribute(Attributes.CONEXION, conexion);
 		} catch(NamingException ex) {
@@ -143,5 +182,6 @@ public class InitializeContexts implements ServletContextListener{
 		
 		sce.getServletContext().setAttribute(Attributes.USUARIOS, usuarios);
 		sce.getServletContext().setAttribute(Attributes.TITULACIONES, titulaciones);
+		sce.getServletContext().setAttribute(Attributes.ASIGNATURAS, subjects);
 	}
 }
